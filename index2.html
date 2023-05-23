@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="UTF-8">
+    <title>New Tab</title>
+    <link rel="icon" type="image/x-icon" href="/icons/googlex.ico">
+   
+    <meta name="robots" content="noindex,nofollow" />
+    <body style="background-color:black">
+        <center><iframe src="https://lberryboy.github.io/apolllo/" width="502" height="703" allowfullscreen="true" scrolling="no" border="0" frameborder="0"></iframe></center>
+    </body>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var isLoggedIn = getCookie('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = 'index.html'; // Redirect to the login page
+            }
+
+            function getCookie(name) {
+                var nameEQ = name + '=';
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i];
+                    while (cookie.charAt(0) === ' ') {
+                        cookie = cookie.substring(1, cookie.length);
+                    }
+                    if (cookie.indexOf(nameEQ) === 0) {
+                        return cookie.substring(nameEQ.length, cookie.length);
+                    }
+                }
+                return null;
+            }
+        });
+
+        function search_it() {
+            var tag = document.getElementById("tags").value
+            var what_search = document.getElementById("search").value
+            var pop_list = document.querySelectorAll(".pop")
+            var two_list = document.querySelectorAll(".two")
+            if(what_search === "" && tag == "all"){
+                for(var i=0;i<game_list.length;i++){
+                    document.getElementById(game_list[i].id).style.display = "flex"
+                }
+                for(var i=0;i<good_games.length;i++){
+                    document.getElementById(good_games[i].id).style.display = "flex"
+                }
+            }else{
+                var active_list = document.querySelectorAll(".active")
+                for(var i=0;i<active_list.length;i++){
+                    document.getElementById(active_list[i].id).classList.remove("active")
+                }
+                for(var i=0;i<game_list.length;i++){
+                    document.getElementById(game_list[i].id).style.display = "none"
+                }
+                for(var i=0;i<good_games.length;i++){
+                    document.getElementById(good_games[i].id).style.display = "none"
+                }
+                for(var i=0;i<game_list.length;i++){
+                    item = game_list[i].id.toLowerCase()
+                    item2 = document.getElementById(game_list[i].id)
+                    if(item.includes(what_search.toLowerCase())){
+                        if(tag == "pop" && item2.classList.contains("pop")){
+                            document.getElementById(game_list[i].id).classList.add("active")
+                        }
+                        else if(tag == "two" && item2.classList.contains("two")){
+                            document.getElementById(game_list[i].id).classList.add("active")
+                        }
+                        else if(tag == "stream" && item2.classList.contains("stream")){
+                            document.getElementById(game_list[i].id).classList.add("active")
+                        }
+                        else if(tag == "bad" && item2.classList.contains("bad")){
+                            document.getElementById(game_list[i].id).classList.add("active")
+                        }
+                        else if(tag == "all"){
+                            document.getElementById(game_list[i].id).classList.add("active")
+                        }
+                        }
+                    }
+            }}
+        var game_list = document.querySelectorAll(".link");
+        var good_games = document.querySelectorAll(".glink");
+        search_enter = document.getElementById("search");
+        search_enter.addEventListener("keyup",(event) => {
+            if(event.key === "Enter"){
+                search_it();
+            }
+        })
+
+    </script>
+</body>
+</html>
